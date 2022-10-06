@@ -37,5 +37,26 @@ namespace BlazorEcommerce.Server.Controllers
             return result;
         }
 
+        [HttpGet("search/{searchText}/{page}")]
+        public async Task<ServiceResponse<ProductSarchResult>> SarchProducts(string searchText, int page = 1)
+        {
+            var result = await _productService.SearchProducts(searchText, page);
+            return result;
+        }
+
+        [HttpGet("searchSuggestions/{searchText}")]
+        public async Task<ActionResult<ServiceResponse<List<Product>>>> GetProductSearchSuggestions(string searchText)
+        {
+            var result = await _productService.GetProductSaerchSuggestions(searchText);
+            return Ok(result);
+        }
+
+        [HttpGet("featured")]
+        public async Task<ActionResult<ServiceResponse<List<Product>>>> GetFeaturedProduct()
+        {
+            var result = await _productService.GetFeaturedProducts();
+            return Ok(result);
+        }
+
     }
 }
